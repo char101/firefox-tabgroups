@@ -1,3 +1,7 @@
+const {Cc, Ci} = require("chrome");
+const PromptService = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
+const TabsUtils = require("sdk/tabs/utils");
+
 function TabManager(storage) {
   this._storage = storage;
 }
@@ -171,7 +175,14 @@ TabManager.prototype = {
    * @param {ChromeWindow} chromeWindow
    */
   addGroup: function(chromeWindow) {
-    this._storage.addGroup(chromeWindow);
+    let input = {value: ""};
+    let check = {value: false};
+    let title = "";
+    if (PromptService.prompt(chromeWindow, "Simplified Tab Groups", "Tab Group Name:", input, null, check)) {
+      title = input.value;
+      let groupID = this._storage.addGroup(chromeWindow, title.trim());
+      this.selectGroup(chromeWindow, TabsUtils.getTabBrowser(chromeWindow), groupID);
+    }
   },
 
   /**

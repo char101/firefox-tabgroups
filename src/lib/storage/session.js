@@ -183,6 +183,8 @@ SessionStorage.prototype = {
 
     this._setGroupsData(chromeWindow, groups);
     this._setCurrentGroupData(chromeWindow, currentGroups);
+
+    return groupID;
   },
 
   /**
