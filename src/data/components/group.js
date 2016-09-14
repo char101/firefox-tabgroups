@@ -26,9 +26,9 @@ const Group = React.createClass({
   },
 
   getTitle: function() {
-    return this.props.group.title || (
+    return (this.props.group.title || (
         addon.options.l10n.unnamed_group + " " + this.props.group.id
-      );
+      )) + " (" + this.props.group.tabs.length + ")";
   },
 
   render: function() {
