@@ -1,3 +1,5 @@
+const TabsUtils = require("sdk/tabs/utils");
+
 function TabManager(storage) {
   this._storage = storage;
 }
