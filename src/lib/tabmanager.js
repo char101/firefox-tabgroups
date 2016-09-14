@@ -183,7 +183,6 @@ TabManager.prototype = {
         let prevGroupCount = tabs.filter((tab) => {
           return tab.group == prevGroupID;
         }).length;
-        console.log(prevGroupCount);
         // the last tab has not been removed yet
         if (prevGroupCount == 1) {
           this.closeGroup(chromeWindow, tabBrowser, prevGroupID);
