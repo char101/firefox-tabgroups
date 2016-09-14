@@ -155,6 +155,29 @@ TabManager.prototype = {
   },
 
   /**
+   * Updates the currently selected group based on the active tab
+   *
+   * @param {ChromwWindow} chromeWindow
+   */
+  updateCurrentSelectedGroup: function(chromeWindow) {
+    let tabs = this._storage.getTabs(chromeWindow);
+    let curtab = tabs.find((tab) => {
+      return tab.active;
+    });
+
+    if (curtab) {
+      let currentGroupID = this._storage.getCurrentGroup(chromeWindow);
+      if (currentGroupID && curtab.group !== currentGroupID) {
+        let curindex = tabs.filter((tab) => {
+          return tab.group == curtab.group;
+        }).indexOf(curtab);
+
+        this.selectGroup(chromeWindow, TabsUtils.getTabBrowser(chromeWindow), curtab.group, curindex);
+      }
+    }
+  },
+
+  /**
    * Renames a given group.
    *
    * @param {ChromeWindow} chromeWindow
