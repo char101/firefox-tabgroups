@@ -176,7 +176,18 @@ TabManager.prototype = {
           return tab.group == curtab.group;
         }).indexOf(curtab);
 
-        this.selectGroup(chromeWindow, TabsUtils.getTabBrowser(chromeWindow), curtab.group, curindex);
+        let prevGroupID = currentGroupID;
+        let tabBrowser = TabsUtils.getTabBrowser(chromeWindow);
+        this.selectGroup(chromeWindow, tabBrowser, curtab.group, curindex);
+
+        let prevGroupCount = tabs.filter((tab) => {
+          return tab.group == prevGroupID;
+        }).length;
+        console.log(prevGroupCount);
+        // the last tab has not been removed yet
+        if (prevGroupCount == 1) {
+          this.closeGroup(chromeWindow, tabBrowser, prevGroupID);
+        }
       }
     }
   },
