@@ -256,7 +256,7 @@ TabGroups.prototype = {
       this._getTabBrowser(),
       event.groupID
     );
-    this.refreshUi();
+    this._groupsPanel.hide();
   },
 
   onTabSelect: function(event) {
